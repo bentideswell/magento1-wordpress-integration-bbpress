@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<layout>
+<!--
+/**
+ * The 'bbpress_default' handle is added to all bbPress handles automatically in the controller
+ *
+**/
+-->
+<bbpress_default>
+	<reference name="root">
+		<action method="setTemplate"><template>page/1column.phtml</template></action>
+	</reference>
+	<reference name="content">
+		<block type="wp_addon_bbpress/content" name="bbpress.content" before="-" template="wordpress-addons/bbpress/content.phtml" />
+	</reference>
+</bbpress_default>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_forum_index></bbpress_forum_index>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_forum_view></bbpress_forum_view>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_topic_view></bbpress_topic_view>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_topic_edit></bbpress_topic_edit>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_topic_tag_view></bbpress_topic_tag_view>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_reply_edit></bbpress_reply_edit>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_reply_move></bbpress_reply_move>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_search_index></bbpress_search_index>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_search_view></bbpress_search_view>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_user_profile></bbpress_user_profile>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_user_replies></bbpress_user_replies>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_user_favorites></bbpress_user_favorites>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_user_topics></bbpress_user_topics>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_user_subscriptions></bbpress_user_subscriptions>
+<!--
+/**
+ *
+ *
+**/
+-->
+<bbpress_user_edit></bbpress_user_edit>
+<!--
+/**
+ *
+ *
+**/
+-->
+</layout>

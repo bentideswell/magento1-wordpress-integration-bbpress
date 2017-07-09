@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <wordpress>
+            <groups>
+	        	<license>
+		        	<fields>
+                    	<wp_addon_bbpress>
+                    		<label>bbPress</label>
+							<frontend_model>wp_addon_bbpress/system_config_form_field_license</frontend_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+                    	</wp_addon_bbpress>
+		        	</fields>
+	        	</license>
+            </groups>
+        </wordpress>
+    </sections>
+</config>
