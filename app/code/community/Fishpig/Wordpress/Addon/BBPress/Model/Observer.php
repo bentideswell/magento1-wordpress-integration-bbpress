@@ -6,7 +6,7 @@
  * @author Ben Tideswell <help@fishpig.co.uk>
  */
 
-class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_Addon_VisualComposer_Model_Observer_Plugin_Abstract
+class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 {
 	/**
 	 * Retrieve the module alias
