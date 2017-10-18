@@ -127,7 +127,9 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 
 		$helper = Mage::helper('wp_addon_bbpress');
 		$router = Mage::app()->getFrontController()->getRouter('wordpress');
-		
+
+		$router->addRoute('/' . $helper->getRootSlug() . '/', 'wp_addon_bbpress/forum/index');
+				
 		// Add some simple routes
 		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicSlug() . '\/([^\/]{1,})\/edit/', 'wp_addon_bbpress/topic/edit');
 		$router->addRoute('/' . $helper->getRootSlug() . '\/reply\/([0-9]{1,})\/edit/', 'wp_addon_bbpress/reply/edit');

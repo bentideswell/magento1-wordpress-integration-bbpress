@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_Wordpress_Addon_BBPress>
-			<version>1.0.0.3</version>
+			<version>1.0.0.4</version>
 			<fishpig>
 				<id>bbpress</id>
 				<name>bbPress</name>
@@ -80,6 +80,16 @@
 				<wp_addon_bbpress />
 			</modules>
 		</core>
+		<sidebar>
+			<widgets>
+				<bbp_views_widget><block>wp_addon_bbpress/sidebar_widget</block></bbp_views_widget>
+				<bbp_forums_widget><block>wp_addon_bbpress/sidebar_widget</block></bbp_forums_widget>
+				<bbp_replies_widget><block>wp_addon_bbpress/sidebar_widget</block></bbp_replies_widget>
+				<bbp_search_widget><block>wp_addon_bbpress/sidebar_widget</block></bbp_search_widget>
+				<bbp_stats_widget><block>wp_addon_bbpress/sidebar_widget</block></bbp_stats_widget>
+				<bbp_topics_widget><block>wp_addon_bbpress/sidebar_widget</block></bbp_topics_widget>
+			</widgets>
+		</sidebar>
 	</wordpress>
 	<fishpig>
 		<injection>
