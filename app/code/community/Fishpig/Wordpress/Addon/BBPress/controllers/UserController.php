@@ -25,45 +25,50 @@ class Fishpig_Wordpress_Addon_BBPress_UserController extends Fishpig_Wordpress_A
 		$this->renderLayout();
 	}
 	
-	/**
-	 * View a topic
-	 **/
+	/*
+	 *
+	 *
+	 */
 	public function repliesAction()
 	{
 		$this->loadLayout('bbpress_user_replies');
 		$this->renderLayout();
 	}
 	
-	/**
-	 * View a topic
-	 **/
-	public function favoritesAction()
+	/*
+	 *
+	 *
+	 */
+	public function favouritesAction()
 	{
-		$this->loadLayout('bbpress_user_favorites');
+		$this->loadLayout('bbpress_user_favourites');
 		$this->renderLayout();
 	}
 	
-	/**
-	 * View a topic
-	 **/
+	/*
+	 *
+	 *
+	 */
 	public function topicsAction()
 	{
 		$this->loadLayout('bbpress_user_topics');
 		$this->renderLayout();
 	}
 	
-	/**
-	 * View a topic
-	 **/
+	/*
+	 *
+	 *
+	 */
 	public function subscriptionsAction()
 	{
 		$this->loadLayout('bbpress_user_subscriptions');
 		$this->renderLayout();
 	}
 	
-	/**
-	 * View a topic
-	 **/
+	/*
+	 *
+	 *
+	 */
 	public function editAction()
 	{
 		$this->loadLayout('bbpress_user_edit');
@@ -85,8 +90,8 @@ class Fishpig_Wordpress_Addon_BBPress_UserController extends Fishpig_Wordpress_A
 		else if ($actionName === 'replies') {
 			return Mage::helper('wp_addon_bbpress')->getUserRepliesHtml();
 		}
-		else if ($actionName === 'favorites') {
-			return Mage::helper('wp_addon_bbpress')->getUserFavoritesHtml();
+		else if ($actionName === 'favourites') {
+			return Mage::helper('wp_addon_bbpress')->getUserFavouritesHtml();
 		}
 		else if ($actionName === 'topics') {
 			return Mage::helper('wp_addon_bbpress')->getUserTopicsHtml();

@@ -8,17 +8,19 @@
 
 class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstract
 {
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getForumIndexHtml()
 	{
 		return $this->_doShortcode('[bbp-forum-index]');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getSingleForumHtml($forumId = 0)
 	{
 		return $this->_doShortcode(
@@ -29,9 +31,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		);
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getSingleTopicHtml($topicId = 0)
 	{
 		return $this->_doShortcode(
@@ -42,9 +45,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		);
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getSingleTopicTagHtml($topicTagId = 0)
 	{
 		return $this->_doShortcode(
@@ -55,9 +59,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		);
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getReplyEditHtml()
 	{
 		if ($reply = bbp_get_reply(null)) {
@@ -71,17 +76,19 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return false;
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getReplyMoveHtml()
 	{
 		return $this->_doTemplate('templates' . DS . 'default' . DS . 'bbpress' . DS . 'form-reply-move.php');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getTopicEditHtml()
 	{
 		if ($topic = bbp_get_topic(null)) {
@@ -97,57 +104,64 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return false;
 	}
 		
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getUserProfileHtml()
 	{
 		return $this->_getUserHtmlTemplate('user-profile.php');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getUserRepliesHtml()
 	{
 		return $this->_getUserHtmlTemplate('user-replies-created.php');
 	}
 
-	/**
+	/*
 	 *
-	**/
-	public function getUserFavoritesHtml()
+	 *
+	 */
+	public function getUserFavouritesHtml()
 	{
 		return $this->_getUserHtmlTemplate('user-favorites.php');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getUserTopicsHtml()
 	{
 		return $this->_getUserHtmlTemplate('user-topics-created.php');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getUserSubscriptionsHtml()
 	{
 		return $this->_getUserHtmlTemplate('user-subscriptions.php');
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getUserEditHtml()
 	{
 		return $this->_getUserHtmlTemplate('form-user-edit.php');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _getUserHtmlTemplate($template)
 	{
 		if ($templateHtml = trim($this->_doTemplate('templates' . DS . 'default' . DS . 'bbpress' . DS . $template))) {
@@ -172,9 +186,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $this->_doTemplate('templates' . DS . 'default' . DS . 'bbpress' . DS . 'content-search.php');
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _updateTextareaValue($html, $id, $value)
 	{
 		if (preg_match_all('/(<textarea[^>]{0,}>).*(<\/textarea>)/Us', $html, $matches)) {
@@ -192,9 +207,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $html;
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _doTemplate($template)
 	{
 		$templateFile = Mage::helper('wordpress')->getWordPressPath() . DS . 'wp-content' . DS . 'plugins' . DS . 'bbpress' . DS . $template;
@@ -226,9 +242,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return false;
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _doShortcode($shortcode)
 	{
 		try {
@@ -254,9 +271,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $shortcode;
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _processShortcodeHtml($html)
 	{
 		if (strpos($html, '<button') !== false) {
@@ -274,9 +292,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $html;
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _startSimulation()
 	{
 		$helper = Mage::helper('wp_addon_bbpress/core');
@@ -288,9 +307,10 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $this;
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	protected function _endSimulation()
 	{
 		$helper = Mage::helper('wp_addon_bbpress/core');
@@ -302,25 +322,121 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $this;
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
 	public function getRootSlug()
 	{
 		return $this->_getOption('_bbp_root_slug', 'forums');
 	}
 
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
+	public function getForumSlug()
+	{
+		return $this->_getOption('_bbp_forum_slug', 'forum');
+	}
+	
+	/*
+	 *
+	 *
+	 */
 	public function getTopicSlug()
 	{
 		return $this->_getOption('_bbp_topic_slug', 'topic');
 	}
 	
-	/**
+	/*
 	 *
-	**/
+	 *
+	 */
+	public function getTopicTagSlug()
+	{
+		return $this->_getOption('_bbp_topic_tag_slug', 'topic-tag');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getTopicViewSlug()
+	{
+		return $this->_getOption('_bbp_topic_view_slug', 'view');
+	}
+
+	/*
+	 *
+	 *
+	 */
+	public function getReplySlug()
+	{
+		return $this->_getOption('_bbp_reply_slug', 'reply');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getSearchSlug()
+	{
+		return $this->_getOption('_bbp_search_slug', 'search');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getUserRootSlug()
+	{
+		return $this->_getOption('_bbp_user_slug', 'users');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getUserTopicsSlug()
+	{
+		return $this->_getOption('_bbp_topic_archive_slug', 'topics');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getUserRepliesSlug()
+	{
+		return $this->_getOption('_bbp_reply_archive_slug', 'replies');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getUserFavouritesSlug()
+	{
+		return $this->_getOption('_bbp_user_favs_slug', 'favourites');
+	}
+	
+	/*
+	 *
+	 *
+	 */
+	public function getUserSubscriptionsSlug()
+	{
+		return $this->_getOption('_bbp_user_subs_slug', 'subscriptions');
+	}
+	
+	
+
+	
+	/*
+	 *
+	 *
+	 */
 	protected function _getOption($key, $default = null)
 	{
 		return Mage::helper('wordpress')->getWpOption($key, $default);

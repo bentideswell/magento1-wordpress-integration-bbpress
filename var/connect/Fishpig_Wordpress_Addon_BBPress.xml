@@ -1,5 +1,5 @@
 <_>
-   <form_key>iHMEzk8rQ4MqUAbn</form_key>
+   <form_key>EhIcl3FWuylnn0G9</form_key>
    <name>Fishpig_Wordpress_Addon_BBPress</name>
    <channel>community</channel>
    <version_ids>
@@ -9,7 +9,7 @@
    <description>Use bbPress in WordPress while integrated into Magento 1.</description>
    <license>FishPig EULA</license>
    <license_uri/>
-   <version>1.0.0.4</version>
+   <version>1.0.1.1</version>
    <stability>stable</stability>
    <notes>For changes, please see https://fishpig.co.uk/magento/wordpress-integration/bbpress/#changelog</notes>
    <authors>
@@ -40,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>   </files>
+            <files>      </files>
          </files>
       </package>
       <extension>
@@ -68,7 +68,7 @@
          <path>Fishpig/Wordpress/Addon/BBPress</path>
          <path>app/etc/modules/Fishpig_Wordpress_Addon_BBPress.xml</path>
          <path>frontend/base/default/template/wordpress-addons/bbpress</path>
-         <path>frontend/base/default/template/wordpress/bbpress.xml</path>
+         <path>frontend/base/default/layout/wordpress/bbpress.xml</path>
       </path>
       <type>
          <type>file</type>

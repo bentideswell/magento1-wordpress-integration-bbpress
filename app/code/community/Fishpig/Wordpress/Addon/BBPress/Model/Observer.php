@@ -128,32 +128,25 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 		$helper = Mage::helper('wp_addon_bbpress');
 		$router = Mage::app()->getFrontController()->getRouter('wordpress');
 
-		$router->addRoute('/' . $helper->getRootSlug() . '/', 'wp_addon_bbpress/forum/index');
-				
-		// Add some simple routes
+		$router->addRoute('/' . $helper->getRootSlug() . '$/', 'wp_addon_bbpress/forum/index');
+		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicTagSlug() . '\//', 'wp_addon_bbpress/topic_tag/view');
+		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getForumSlug() . '\//', 'wp_addon_bbpress/forum/view');
+		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicSlug() . '\/([^\/]{1,})$/', 'wp_addon_bbpress/topic/view');
 		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicSlug() . '\/([^\/]{1,})\/edit/', 'wp_addon_bbpress/topic/edit');
 		$router->addRoute('/' . $helper->getRootSlug() . '\/reply\/([0-9]{1,})\/edit/', 'wp_addon_bbpress/reply/edit');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/search[\/]{0,1}$/', 'wp_addon_bbpress/search/index');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/search\/(.*)$/', 'wp_addon_bbpress/search/view');
+		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getSearchSlug() . '[\/]{0,1}$/', 'wp_addon_bbpress/search/index');
+		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getSearchSlug() . '\/(.*)$/', 'wp_addon_bbpress/search/view');
 
-		// Add the user homepage
-		$router->addRoute('/^' . $helper->getRootSlug() . '\/users\/fishpig$/', 'wp_addon_bbpress/user/index');
+		// User pages
+		$baseUserRoute = '/^' . $helper->getRootSlug() . '\/' . $helper->getUserRootSlug() . '\/[^\/]+';
 		
-		// User actions for other user pages
-		$userActions = array(
-			'topics',
-			'replies',
-			'favorites',
-			'subscriptions',
-			'edit',
-			'profile',
-		);
-
-		foreach($userActions as $action) {
-			$route = $helper->getRootSlug() . '\/users\/([^\/]{1,})' . ($action === '' ? '' : '\/' . $action);
-			$router->addRoute('/' . $route . '/', 'wp_addon_bbpress/user/' . $action);
-		}
-				
+		$router->addRoute($baseUserRoute . '$/', 'wp_addon_bbpress/user/index');
+		$router->addRoute($baseUserRoute . '\/' . $helper->getUserTopicsSlug() . '$/', 'wp_addon_bbpress/user/topics');
+		$router->addRoute($baseUserRoute . '\/' . $helper->getUserRepliesSlug() . '$/', 'wp_addon_bbpress/user/replies');
+		$router->addRoute($baseUserRoute . '\/' . $helper->getUserFavouritesSlug() . '$/', 'wp_addon_bbpress/user/favourites');
+		$router->addRoute($baseUserRoute . '\/' . $helper->getUserSubscriptionsSlug() . '$/', 'wp_addon_bbpress/user/subscriptions');
+		$router->addRoute($baseUserRoute . '\/edit$/', 'wp_addon_bbpress/user/edit');
+		
 		return $this;
 	}
 
