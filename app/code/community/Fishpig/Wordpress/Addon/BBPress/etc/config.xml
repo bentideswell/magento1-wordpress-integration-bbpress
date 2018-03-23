@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_Wordpress_Addon_BBPress>
-			<version>1.0.1.1</version>
+			<version>1.0.1.2</version>
 			<fishpig>
 				<id>bbpress</id>
 				<name>bbPress</name>
@@ -91,44 +91,4 @@
 			</widgets>
 		</sidebar>
 	</wordpress>
-	<fishpig>
-		<injection>
-			<Fishpig_Inject_Wordpress_Model_Observer_Plugin_Abstract>
-				<Fishpig_Wordpress_Addon_BBPress>
-					<Model_Observer_Plugin_Abstract><ignore /></Model_Observer_Plugin_Abstract>
-				</Fishpig_Wordpress_Addon_BBPress>
-			</Fishpig_Inject_Wordpress_Model_Observer_Plugin_Abstract>
-			<Fishpig_Inject_Wordpress_Block_System_Config_Form_Field_License>
-				<Fishpig_Wordpress_Addon_BBPress>
-					<Block_System_Config_Form_Field_License><ignore /></Block_System_Config_Form_Field_License>
-				</Fishpig_Wordpress_Addon_BBPress>
-			</Fishpig_Inject_Wordpress_Block_System_Config_Form_Field_License>
-			<Fishpig_Inject_Wordpress_Helper_License>
-				<Fishpig_Wordpress_Addon_BBPress>
-					<Helper_License><ignore /></Helper_License>
-				</Fishpig_Wordpress_Addon_BBPress>
-			</Fishpig_Inject_Wordpress_Helper_License>
-			<Fishpig_Inject_Wordpress_Helper_Core>
-				<Fishpig_Wordpress_Addon_BBPress>
-					<Helper_Core><ignore /></Helper_Core>
-				</Fishpig_Wordpress_Addon_BBPress>
-			</Fishpig_Inject_Wordpress_Helper_Core>
-		</injection>
-		<encode>
-			<block_lcs>app/code/community/Fishpig/Wordpress/Addon/BBPress/Block/System/Config/Form/Field/License.php</block_lcs>
-			<controller_abstract>app/code/community/Fishpig/Wordpress/Addon/BBPress/Controller/Abstract.php</controller_abstract>
-			<controller_forum>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/ForumController.php</controller_forum>
-			<controller_form>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/ForumController.php</controller_form>
-			<controller_reply>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/ReplyController.php</controller_reply>
-			<controller_search>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/SearchController.php</controller_search>
-			<controller_topic>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/TopicController.php</controller_topic>
-			<controller_topic_tag>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/Topic/TagController.php</controller_topic_tag>
-			<controller_user>app/code/community/Fishpig/Wordpress/Addon/BBPress/controllers/UserController.php</controller_user>
-			<helper_core>app/code/community/Fishpig/Wordpress/Addon/BBPress/Helper/Core.php</helper_core>
-			<helper_data>app/code/community/Fishpig/Wordpress/Addon/BBPress/Helper/Data.php</helper_data>
-			<helper_license>app/code/community/Fishpig/Wordpress/Addon/BBPress/Helper/License.php</helper_license>
-			<observer>app/code/community/Fishpig/Wordpress/Addon/BBPress/Model/Observer.php</observer>
-			<observer_plugin_abstract>app/code/community/Fishpig/Wordpress/Addon/BBPress/Model/Observer/Plugin/Abstract.php</observer_plugin_abstract>
-		</encode>
-	</fishpig>
 </config>

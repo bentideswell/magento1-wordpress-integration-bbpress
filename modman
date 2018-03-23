@@ -2,4 +2,3 @@ app/code/community/Fishpig/Wordpress/Addon/BBPress app/code/community/Fishpig/Wo
 app/etc/modules/Fishpig_Wordpress_Addon_BBPress.xml app/etc/modules/Fishpig_Wordpress_Addon_BBPress.xml
 app/design/frontend/base/default/layout/wordpress/bbpress.xml app/design/frontend/base/default/layout/wordpress/bbpress.xml
 app/design/frontend/base/default/template/wordpress-addons/bbpress app/design/frontend/base/default/template/wordpress-addons/bbpress
-var/connect/Fishpig_Wordpress_Addon_BBPress.xml var/connect/Fishpig_Wordpress_Addon_BBPress.xml
