@@ -4,6 +4,7 @@
  * @package     Fishpig_Wordpress
  * @license     http://fishpig.co.uk/license.txt
  * @author      Ben Tideswell <help@fishpig.co.uk>
+ * @SkipObfuscation
  */
 
 abstract class Fishpig_Wordpress_Addon_BBPress_Controller_Abstract extends Fishpig_Wordpress_Controller_Abstract
@@ -25,13 +26,10 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Controller_Abstract extends Fishp
 	 * @param bool $generateXml = true
 	**/
 	public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
-	{
-		// Force the includes of the BBPress header and footer files
-#		Mage::getSingleton('wp_addon_bbpress/observer')->enableHeadFooterIncludes();
-		
+	{	
 		// Get the HTML
 		$html = Mage::helper('wp_addon_bbpress/core')->getHtml();
-		
+
 		// Load the layout
 		parent::loadLayout(array_merge((array)$handles, array('default', 'bbpress_default')), $generateBlocks, $generateXml);
 		
