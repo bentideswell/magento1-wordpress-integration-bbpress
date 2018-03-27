@@ -27,7 +27,7 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Controller_Abstract extends Fishp
 	public function loadLayout($handles = null, $generateBlocks = true, $generateXml = true)
 	{
 		// Force the includes of the BBPress header and footer files
-		Mage::getSingleton('wp_addon_bbpress/observer')->enableHeadFooterIncludes();
+#		Mage::getSingleton('wp_addon_bbpress/observer')->enableHeadFooterIncludes();
 		
 		// Get the HTML
 		$html = Mage::helper('wp_addon_bbpress/core')->getHtml();

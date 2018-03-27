@@ -1,9 +1,12 @@
 /**
  * @category Fishpig
- * @package Fishpig_Wordpress_Addon_BBPress
- * @url http://fishpig.co.uk/magento/wordpress-integration/bbpress/
- * @author Ben Tideswell <ben@fishpig.co.uk>
+ * @package  Fishpig_Wordpress_Addon_BBPress
+ * @url      https://fishpig.co.uk/magento/wordpress-integration/bbpress/
+ * @author   Ben Tideswell <ben@fishpig.co.uk>
  */
+
+27/03/2017 - 1.3.0.0
+- Added fix for Magento WordPress Integration 4.5.0.0
 
 22/05/2017 - 1.0.0.0
 - First stable release of the bbPress add-on extension for Magento WordPress Integration (Magento 1).

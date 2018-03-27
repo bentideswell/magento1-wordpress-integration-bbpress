@@ -9,23 +9,13 @@
 class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 {
 	/**
-	 * Retrieve the module alias
+	 * Determine whether the plugin in WordPress is enabled
 	 *
-	 * @return string
+	 * @return bool
 	 */
-	protected function _getModuleAlias()
+	public function isEnabled()
 	{
-		return 'wp_addon_bbpress';
-	}
-	
-	/**
-	 * Retrieve the module alias
-	 *
-	 * @return string
-	 */
-	protected function _getPluginFile()
-	{
-		return 'bbpress/bbpress.php';
+		return Mage::helper('wordpress/plugin')->isEnabled('bbpress/bbpress.php');
 	}
 
 	/**
@@ -46,20 +36,24 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 			return $this;
 		}
 
-		$types = get_post_types(array('_builtin' => false, 'public' => true), 'objects');	
-		
-		foreach(array('forum', 'topic', 'reply') as $type) {
-			if (isset($types[$type])) {
-				if (!isset($postTypes[$type])) {
-					$postTypes[$type] = Mage::getModel('wordpress/post_type')
-						->setData(json_decode(json_encode($types[$type]), true))
-						->setPostType($type);
+		Mage::helper('wp_addon_bbpress/core')->simulatedCallback(
+			function($postTypes) {
+				$types = get_post_types(array('_builtin' => false, 'public' => true), 'objects');	
+				
+				foreach(array('forum', 'topic', 'reply') as $type) {
+					if (isset($types[$type])) {
+						if (!isset($postTypes[$type])) {
+							$postTypes[$type] = Mage::getModel('wordpress/post_type')
+								->setData(json_decode(json_encode($types[$type]), true))
+								->setPostType($type);
+						}
+	
+						$postTypes[$type]->setCustomRoute('wp_addon_bbpress/' . $type . '/view')->setCustomArchiveRoute('wp_addon_bbpress/' . $type . '/index');
+					}
 				}
-
-				$postTypes[$type]->setCustomRoute('wp_addon_bbpress/' . $type . '/view')
-					->setCustomArchiveRoute('wp_addon_bbpress/' . $type . '/index');
-			}
-		}
+			}, 
+			array($postTypes)
+		);
 
 		return $this;
 	}
@@ -76,27 +70,30 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 			return $this;
 		}
 
-		$helper = $observer->getEvent()->getHelper();
-		
+		$helper     = $observer->getEvent()->getHelper();		
 		$taxonomies = $observer->getEvent()->getTransport()->getTaxonomies();
-		$types = get_taxonomies(array('_builtin' => false, 'public' => true), 'objects');
+		
+		Mage::helper('wp_addon_bbpress/core')->simulatedCallback(
+			function($taxonomies) {
+				$types = get_taxonomies(array('_builtin' => false, 'public' => true), 'objects');
+		
+				foreach(array('topic-tag') as $type) {
+					if (isset($types[$type])) {
+						if (!isset($taxonomies[$type])) {
+							$taxonomies[$type] = Mage::getModel('wordpress/term_taxonomy')
+								->setData(json_decode(json_encode($types[$type]), true))
+								->setTaxonomyType($type);
+						}
 
-		foreach(array('topic-tag') as $type) {
-			if (isset($types[$type])) {
-				if (!isset($taxonomies[$type])) {
-					$taxonomies[$type] = Mage::getModel('wordpress/term_taxonomy')
-						->setData(json_decode(json_encode($types[$type]), true))
-						->setTaxonomyType($type);
+						$taxonomies[$type]->setCustomRoute('wp_addon_bbpress/' . str_replace('-', '_', $type) . '/view');
+					}
 				}
+			},
+			array($taxonomies)
+		);
 
-				$taxonomies[$type]->setCustomRoute('wp_addon_bbpress/' . str_replace('-', '_', $type) . '/view');
-			}
-		}
-
-		$observer->getEvent()
-			->getTransport()
-				->setTaxonomies($taxonomies);
-
+		$observer->getEvent()->getTransport()->setTaxonomies($taxonomies);
+				
 		return $this;
 	}
 
@@ -156,8 +153,16 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 	 * @param Varien_Event_Observer $observer
 	 * @return $this
 	 */	
-	protected function _getHeadFooterContent()
+	public function getAssets($html)
 	{
+		if (!$this->isEnabled()) {
+			return false;
+		}
+
+		if (Mage::helper('wordpress')->isAddonInstalled('PluginShortcodeWidget')) {
+			return false;
+		}
+
 		global $wp_styles, $wp_scripts;
 		
 		if (!$wp_styles || !$wp_scripts) {
@@ -166,14 +171,14 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 
 		$wp_styles->do_concat = true;
 		$wp_scripts->do_concat = true;	
-		$jsCssFiles = array();
+		$assets = array();
 
 		foreach($wp_styles->registered as $style) {
 			if (strpos($style->src, 'bbpress') !== false) {
 				$wp_styles->print_html = '';
 
 				if ($wp_styles->do_item($style->handle)) {
-					$jsCssFiles[] = $wp_styles->print_html;
+					$assets[] = $wp_styles->print_html;
 				}
 			}
 		}
@@ -184,29 +189,15 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 
 				if ($wp_scripts->do_item($script->handle)) {
 					if ($extra = $wp_scripts->print_extra_script($script->handle, false)) {
-						$jsCssFiles[] = "<script type='text/javascript'>" . $extra . "</script>";
+						$assets[] = "<script type='text/javascript'>" . $extra . "</script>";
 					}
 					
-					$jsCssFiles[] = $wp_scripts->print_html;
+					$assets[] = $wp_scripts->print_html;
 				}
 			}
 		}
 
-		$this->_addToHeadFooterContent($jsCssFiles);
-		
-		return true;
-	}
-	
-	/**
-	 * Allows the controller to force JS/CSS inclusion
-	 *
-	 * @return $this
-	 **/
-	public function enableHeadFooterIncludes()
-	{
-		self::$_shortcodeIncluded = true;
-		
-		return $this;
+		return $assets;
 	}
 	
 	/**

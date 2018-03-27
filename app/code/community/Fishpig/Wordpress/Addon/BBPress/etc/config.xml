@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fishpig_Wordpress_Addon_BBPress>
-			<version>1.0.1.2</version>
+			<version>1.3.0.0</version>
 			<fishpig>
 				<id>bbpress</id>
 				<name>bbPress</name>

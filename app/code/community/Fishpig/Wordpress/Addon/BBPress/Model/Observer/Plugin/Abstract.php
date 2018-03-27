@@ -90,6 +90,13 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 		return false;
 	}
 	
+	/*
+	 * 
+	 *
+	 * @param  string $html
+	 * @param  string $html
+	 * @return array|false
+	 */
 	public function getScriptAndLinkTags($html, $path)
 	{
 		if (preg_match_all('/<(script|link)[^>]+(href|src)=[\'"]{1}([^\'"]{1,}' . preg_quote($path, '/') . '.*)[\'"]{1}[^>]{0,}>/U', $html, $matches)) {
@@ -156,8 +163,6 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 		return $code;
 	}
 
-	
-	
 	/**
 	 * Get the wp_head() and wp_footer() content
 	 *
