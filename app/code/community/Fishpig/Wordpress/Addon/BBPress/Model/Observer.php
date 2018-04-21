@@ -126,16 +126,20 @@ class Fishpig_Wordpress_Addon_BBPress_Model_Observer extends Fishpig_Wordpress_A
 		$router = Mage::app()->getFrontController()->getRouter('wordpress');
 
 		$router->addRoute('/' . $helper->getRootSlug() . '$/', 'wp_addon_bbpress/forum/index');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicTagSlug() . '\//', 'wp_addon_bbpress/topic_tag/view');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getForumSlug() . '\//', 'wp_addon_bbpress/forum/view');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicSlug() . '\/([^\/]{1,})$/', 'wp_addon_bbpress/topic/view');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getTopicSlug() . '\/([^\/]{1,})\/edit/', 'wp_addon_bbpress/topic/edit');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/reply\/([0-9]{1,})\/edit/', 'wp_addon_bbpress/reply/edit');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getSearchSlug() . '[\/]{0,1}$/', 'wp_addon_bbpress/search/index');
-		$router->addRoute('/' . $helper->getRootSlug() . '\/' . $helper->getSearchSlug() . '\/(.*)$/', 'wp_addon_bbpress/search/view');
+		
+#		$rootSlug = $helper->urlsPrefixedWithForumRootSlug() ? $helper->getRootSlug() . '\/' : '';
+		$rootSlug = $helper->getRootSlug() . '\/';
+		
+		$router->addRoute('/^' . $rootSlug . $helper->getTopicTagSlug() . '\//', 'wp_addon_bbpress/topic_tag/view');
+		$router->addRoute('/^' . $rootSlug . $helper->getForumSlug() . '\//', 'wp_addon_bbpress/forum/view');
+		$router->addRoute('/^' . $rootSlug . $helper->getTopicSlug() . '\/([^\/]{1,})$/', 'wp_addon_bbpress/topic/view');
+		$router->addRoute('/^' . $rootSlug . $helper->getTopicSlug() . '\/([^\/]{1,})\/edit/', 'wp_addon_bbpress/topic/edit');
+		$router->addRoute('/^' . $rootSlug . 'reply\/([0-9]{1,})\/edit/', 'wp_addon_bbpress/reply/edit');
+		$router->addRoute('/^' . $rootSlug . $helper->getSearchSlug() . '[\/]{0,1}$/', 'wp_addon_bbpress/search/index');
+		$router->addRoute('/^' . $rootSlug . $helper->getSearchSlug() . '\/(.*)$/', 'wp_addon_bbpress/search/view');
 
 		// User pages
-		$baseUserRoute = '/^' . $helper->getRootSlug() . '\/' . $helper->getUserRootSlug() . '\/[^\/]+';
+		$baseUserRoute = '/^' . $rootSlug . $helper->getUserRootSlug() . '\/[^\/]+';
 		
 		$router->addRoute($baseUserRoute . '$/', 'wp_addon_bbpress/user/index');
 		$router->addRoute($baseUserRoute . '\/' . $helper->getUserTopicsSlug() . '$/', 'wp_addon_bbpress/user/topics');

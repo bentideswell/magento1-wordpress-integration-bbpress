@@ -431,8 +431,14 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		return $this->_getOption('_bbp_user_subs_slug', 'subscriptions');
 	}
 	
-	
-
+	/*
+	 *
+	 *
+	 */
+	public function urlsPrefixedWithForumRootSlug()
+	{
+		return (int)$this->_getOption('_bbp_include_root', 0) === 1;
+	}	
 	
 	/*
 	 *
