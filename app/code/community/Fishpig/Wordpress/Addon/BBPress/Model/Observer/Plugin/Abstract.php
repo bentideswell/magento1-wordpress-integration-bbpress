@@ -125,11 +125,37 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 			$html = Mage::helper('wp_addon_bbpress/core')->getHtml();
 		}
 
+		if ($scripts = $this->_matchAll('/<script[^>]{1,}>.*<\/script>/Us', $html, 0)) {
+			foreach($scripts as $key => $script) {
+				if (preg_match('/<script[^>]{1,}src=/U', $script)) {
+					unset($scripts[$key]);
+					continue;
+				}
+
+				if (!preg_match('/(' . $tokens . ')/i', $script)) {
+					unset($scripts[$key]);
+					continue;					
+				}
+			}
+			
+			if (count($scripts) > 0) {
+				return $scripts;
+			}
+		}
+		
+		return array();
+		
+		/*
+		if (is_null($html)) {
+			$html = Mage::helper('wp_addon_bbpress/core')->getHtml();
+		}
+
 		return $this->_matchAll(
 			'/<script[^>]{1,}>((?!<\/script>).)*(' . $tokens . ')((?!<\/script>).)*<\/script>/Us',
 			$html, 
 			0
 		);
+		*/
 	}
 	
 	/**
