@@ -122,7 +122,9 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Core extends Mage_Core_Helper_Abstr
 				$globals = array_merge(array('post', 'plugin_meta'), array_keys($globals));
 
 				foreach(array_unique($globals) as $global) {
-					global $$global;
+					if (!isset($GLOBALS[$global])) {
+						global $$global;
+					}
 				}
 			}
 
