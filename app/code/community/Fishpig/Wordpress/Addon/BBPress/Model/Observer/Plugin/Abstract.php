@@ -1,11 +1,10 @@
 <?php
-/**
- * @category Fishpig
- * @package Fishpig_Wordpress_Addon_BBPress
- * @license http://fishpig.co.uk/license.txt
- * @author Ben Tideswell <help@fishpig.co.uk>
+/*
+ *
+ * @Obfuscate
+ *
+ *
  */
-
 abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 {
 	/**
@@ -166,27 +165,7 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 	 */
 	protected function _doShortcode($code)
 	{
-		try {
-			$coreHelper = Mage::helper('wp_addon_bbpress/core');
-			
-			if ($coreHelper->isActive()) {
-				$coreHelper->startWordPressSimulation();
-				$value = do_shortcode($code);
-				$coreHelper->endWordPressSimulation();
-				
-				// Fix HTML entity data parameters
-				$value = str_replace(array('&#091;', '&#093;'), array('[', ']'), $value);
-	
-				return $value;
-			}
-		}
-		catch (Exception $e) {
-			$coreHelper->endWordPressSimulation();
-			
-			Mage::helper('wordpress')->log($e);
-		}
-		
-		return $code;
+		return Mage::helper('wp_addon_bbpress/core')->doShortcode($code);
 	}
 
 	/**
@@ -196,30 +175,15 @@ abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 	 **/
 	protected function _getWpHeadAndWpFooter()
 	{
-		try {
-			$coreHelper = Mage::helper('wp_addon_bbpress/core');
-			
-			if ($coreHelper->isActive()) {
-				$coreHelper->startWordPressSimulation();
-
+		return Mage::helper('wp_addon_bbpress/core')->simulatedCallback(
+			function() {
 				ob_start();
 		
 				wp_head();
 				wp_footer();
 				
-				$html = trim(ob_get_clean());
-				
-				$coreHelper->endWordPressSimulation();
-	
-				return $html;
+				return trim(ob_get_clean());
 			}
-		}
-		catch (Exception $e) {
-			$coreHelper->endWordPressSimulation();
-			
-			Mage::helper('wordpress')->log($e);
-		}
-		
-		return false;
+		);
 	}
 }
