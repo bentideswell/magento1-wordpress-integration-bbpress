@@ -220,27 +220,18 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 			return false;
 		}
 		
-		try {
-			$this->_startSimulation();
-
-			ob_start();
+		$value = Mage::helper('wp_addon_bbpress/core')->simulatedCallback(
+			function($templateFile) {
+				ob_start();
 			
-			include($templateFile);
-			
-			$value = ob_get_clean();
+				include($templateFile);
 
-			$this->_endSimulation();
-				
-			// Fix HTML entity data parameters
-			$value = str_replace(array('&#091;', '&#093;'), array('[', ']'), $value);
-	
-			return $this->_processShortcodeHtml($value);
-		}
-		catch (Exception $e) {
-			Mage::helper('wordpress')->log($e);
-		}
+				// Fix HTML entity data parameters
+				return str_replace(array('&#091;', '&#093;'), array('[', ']'), ob_get_clean());
+			}, array($templateFile)
+		);
 		
-		return false;
+		return $this->_processShortcodeHtml($value);
 	}
 
 	/*
@@ -249,27 +240,7 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 	 */
 	protected function _doShortcode($shortcode)
 	{
-		try {
-			$this->_startSimulation();
-
-			ob_start();
-			
-			echo do_shortcode($shortcode);
-			
-			$value = ob_get_clean();
-
-			$this->_endSimulation();
-				
-			// Fix HTML entity data parameters
-			$value = str_replace(array('&#091;', '&#093;'), array('[', ']'), $value);
-	
-			return $this->_processShortcodeHtml($value);
-		}
-		catch (Exception $e) {
-			Mage::helper('wordpress')->log($e);
-		}
-		
-		return $shortcode;
+		return Mage::helper('wp_addon_bbpress/core')->doShortcode($shortcode);
 	}
 
 	/*
@@ -291,36 +262,6 @@ class Fishpig_Wordpress_Addon_BBPress_Helper_Data extends Mage_Core_Helper_Abstr
 		}
 		
 		return $html;
-	}
-	
-	/*
-	 *
-	 *
-	 */
-	protected function _startSimulation()
-	{
-		$helper = Mage::helper('wp_addon_bbpress/core');
-			
-		if ($helper->isActive()) {
-			$helper->startWordPressSimulation();
-		}
-		
-		return $this;
-	}
-
-	/*
-	 *
-	 *
-	 */
-	protected function _endSimulation()
-	{
-		$helper = Mage::helper('wp_addon_bbpress/core');
-			
-		if ($helper->isActive()) {
-			$helper->endWordPressSimulation();
-		}
-		
-		return $this;
 	}
 	
 	/*
