@@ -1,7 +1,9 @@
 <?php
-/**
- * @package Fishpig_Wordpress_Addon_BBPress
- * @url     https://fishpig.co.uk/magento/wordpress-integration/
+/*
+ *
+ * @Obfuscate
+ *
+ *
  */
 abstract class Fishpig_Wordpress_Addon_BBPress_Model_Observer_Plugin_Abstract
 {
